@@ -74,7 +74,7 @@ execute(#otsdb{tags=DefTags, host=Host, port=Port}, Action) ->
 write(Sock, {Metric, Amount, Tags}) ->
   SafeTags = format_tags(Tags),
   T = list_to_binary(integer_to_list(unix_timestamp())),
-  Msg = <<$p,$u,$t,$\s, T/binary, $\s, Metric/binary, $\s, Amount/binary, SafeTags/binary, $\n>>,
+  Msg = <<$p,$u,$t,$\s, Metric/binary, $\s, T/binary, $\s, Amount/binary, $\s, SafeTags/binary, $\n>>,
   Reply = gen_tcp:send(Sock, Msg),
   ok = gen_tcp:close(Sock),
   Reply.
